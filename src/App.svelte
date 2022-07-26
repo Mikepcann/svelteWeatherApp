@@ -1,5 +1,6 @@
 <script>
   import DisplayWeather from './lib/DisplayWeather.svelte'
+  import {onDestroy} from 'svelte'
   const key = import.meta.env.VITE_WEATHER_API_KEY
   let city
   let loading = true
@@ -11,7 +12,18 @@
     loading = !loading
     cityWeather = city
     city = ''
-
+    const input = document.querySelector('input')
+    input.disabled = true
+    console.log(input)
+  }
+  function clearComp(){
+    loading = true
+    const input = document.querySelector('input')
+    input.disabled = !input.disabled
+    input.focus()
+    onDestroy(()=>{
+      console.log("All cleared up!")
+    })
   }
 
 </script>
@@ -25,5 +37,6 @@
 
 
 {#if !loading}
-  <DisplayWeather city={cityWeather}/>
+  <DisplayWeather  city={cityWeather}/>
+  <button on:click={clearComp}>Clear</button>
 {/if}

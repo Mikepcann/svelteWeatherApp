@@ -1,15 +1,6 @@
 <script>
-    import {onMount, onDestroy} from 'svelte'
+    import { fade, fly } from 'svelte/transition';
     export let result
-
-
-    onMount(()=>{
-        console.log("mounted!")
-    })
-    
-     onDestroy(()=>{
-        console.log("destroyed!!")
-    })
     
     let isCelcius = true
     function convert(){
@@ -18,8 +9,7 @@
 
 </script>
 
-
-<table>
+<table in:fly="{{x: 700, duration: 1000}}" out:fade>
     <th>City</th>
     <th>Region</th>
     <th>Country</th>
